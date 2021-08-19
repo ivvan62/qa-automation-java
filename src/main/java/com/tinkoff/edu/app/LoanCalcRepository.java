@@ -2,9 +2,18 @@ package com.tinkoff.edu.app;
 
 public class LoanCalcRepository {
 
-    private  static int requestId;
+    private int requestId;
 
-    public static int save() {
+    public LoanCalcRepository(int requestId) {
+        this.requestId = requestId;
+    }
+
+
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public int save() {
         return ++requestId;
     }
 }
