@@ -1,9 +1,18 @@
 package com.tinkoff.edu.app;
 
-public class LoanCalcService {
-    public int createRequest(LoanRequest request) {
+public class LoanCalcService implements LoanCalcServiceInterface {
+    private LoanCalcRepository repo;
 
-        LoanCalcRepository loanCalcRepository = new LoanCalcRepository (20);
-        return  loanCalcRepository.save();
+    public LoanCalcService(LoanCalcRepository repo) {
+        this.repo = repo;
+    }
+
+    @Override
+    public int createRequest(LoanRequest request) {
+        return  repo.saveRequest(request);
+    }
+
+    public int createResponse(LoanResponse response) {
+        return  repo.saveResponse(response);
     }
 }
