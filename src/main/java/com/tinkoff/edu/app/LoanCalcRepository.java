@@ -1,10 +1,6 @@
 package com.tinkoff.edu.app;
 
-public class LoanCalcRepository {
-
-    private  static int requestId;
-
-    public static int save() {
-        return ++requestId;
-    }
+public interface LoanCalcRepository {
+    int saveRequest(LoanRequest request);
+    int saveResponse(LoanResponse response);
 }
