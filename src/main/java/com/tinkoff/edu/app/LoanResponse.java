@@ -7,4 +7,7 @@ public class LoanResponse {
         this.responseType = responseType;
     }
 
+    public LoanResponseType getResponseType() {
+        return responseType;
+    }
 }

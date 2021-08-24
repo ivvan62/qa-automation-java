@@ -7,7 +7,7 @@ import com.tinkoff.edu.app.*;
  */
 public class LoanCalcTest {
     public static void main (String... args){
-        LoanRequest request = new LoanRequest(LoanType.IP, 3,500);
+        LoanRequest request = new LoanRequest(LoanType.IP, 3, 500);
         LoanCalcController loanCalcController = new LoanCalcController(new StaticVariableLoanCalcRepository());
         int requestId = loanCalcController.createRequest(request);
         System.out.println("request_id = " + requestId);
