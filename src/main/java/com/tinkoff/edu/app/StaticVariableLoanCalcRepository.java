@@ -1,9 +1,17 @@
 package com.tinkoff.edu.app;
 
 public class StaticVariableLoanCalcRepository implements LoanCalcRepository {
-
     private int requestId;
     private int responseId;
+
+    public StaticVariableLoanCalcRepository(int requestId, int responseId) {
+        this.responseId = responseId;
+        this.requestId = requestId;
+    }
+
+    public StaticVariableLoanCalcRepository() {
+
+    }
 
     @Override
     public int saveRequest(LoanRequest request) {
@@ -12,7 +20,6 @@ public class StaticVariableLoanCalcRepository implements LoanCalcRepository {
 
     @Override
     public int saveResponse(LoanResponse response) {
-        return ++responseId;
+        return responseId += 2;
     }
-
 }
