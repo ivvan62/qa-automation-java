@@ -15,33 +15,33 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AppTest {
     private LoanRequest request;
     private LoanResponse response;
-    private LoanCalcController loanCalcController;
-    private LoanCalcController loanCalcController2;
-    private static final int requestIdForTest = 20;
-    private static final int responseIdForTest = 30;
+    private LoanCalcController loanCalcControllerForTestGetId1;
+    private LoanCalcController loanCalcControllerForTestGetIncrementedId;
+    private static final int requestIdForTestGetIncrementedId = 20;
+    private static final int responseIdForTestGetIncrementedId = 30;
 
     @BeforeEach
     public void init () {
         request = new LoanRequest(LoanType.IP, 3, 500);
         response = new LoanResponse(LoanResponseType.APPROVED);
-        loanCalcController = new LoanCalcController(new StaticVariableLoanCalcRepository(requestIdForTest, responseIdForTest));
-        loanCalcController2 = new LoanCalcController(new StaticVariableLoanCalcRepository());
+        loanCalcControllerForTestGetId1 = new LoanCalcController(new StaticVariableLoanCalcRepository(requestIdForTestGetIncrementedId, responseIdForTestGetIncrementedId));
+        loanCalcControllerForTestGetIncrementedId = new LoanCalcController(new StaticVariableLoanCalcRepository());
     }
 
     @Test
     public void shouldGetId1WhenFirstCall (){
-        int requestId = loanCalcController2.createRequest(request);
-        int responseId = loanCalcController2.createResponse(response);
+        int requestId = loanCalcControllerForTestGetIncrementedId.createRequest(request);
+        int responseId = loanCalcControllerForTestGetIncrementedId.createResponse(response);
         assertEquals(requestId, 1);
         assertEquals(responseId, 2);
     }
 
     @Test
     public void shouldGetIncrementedIdWhenAnyCall (){
-        int requestId = loanCalcController.createRequest(request);
-        int responseId = loanCalcController.createResponse(response);
-        assertEquals(requestId, requestIdForTest+1);
-        assertEquals(responseId, responseIdForTest+2);
+        int requestId = loanCalcControllerForTestGetId1.createRequest(request);
+        int responseId = loanCalcControllerForTestGetId1.createResponse(response);
+        assertEquals(requestId, requestIdForTestGetIncrementedId+1);
+        assertEquals(responseId, responseIdForTestGetIncrementedId+2);
     }
 
     @Test
