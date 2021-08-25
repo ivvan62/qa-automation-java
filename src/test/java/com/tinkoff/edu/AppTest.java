@@ -24,22 +24,23 @@ public class AppTest {
     public void init () {
         request = new LoanRequest(LoanType.IP, 3, 500);
         response = new LoanResponse(LoanResponseType.APPROVED);
-        loanCalcControllerForTestGetId1 = new LoanCalcController(new StaticVariableLoanCalcRepository(requestIdForTestGetIncrementedId, responseIdForTestGetIncrementedId));
-        loanCalcControllerForTestGetIncrementedId = new LoanCalcController(new StaticVariableLoanCalcRepository());
+        loanCalcControllerForTestGetIncrementedId = new LoanCalcController
+                (new StaticVariableLoanCalcRepository(requestIdForTestGetIncrementedId, responseIdForTestGetIncrementedId));
+        loanCalcControllerForTestGetId1 = new LoanCalcController(new StaticVariableLoanCalcRepository());
     }
 
     @Test
     public void shouldGetId1WhenFirstCall (){
-        int requestId = loanCalcControllerForTestGetIncrementedId.createRequest(request);
-        int responseId = loanCalcControllerForTestGetIncrementedId.createResponse(response);
+        int requestId = loanCalcControllerForTestGetId1.createRequest(request);
+        int responseId = loanCalcControllerForTestGetId1.createResponse(response);
         assertEquals(requestId, 1);
         assertEquals(responseId, 2);
     }
 
     @Test
     public void shouldGetIncrementedIdWhenAnyCall (){
-        int requestId = loanCalcControllerForTestGetId1.createRequest(request);
-        int responseId = loanCalcControllerForTestGetId1.createResponse(response);
+        int requestId = loanCalcControllerForTestGetIncrementedId.createRequest(request);
+        int responseId = loanCalcControllerForTestGetIncrementedId.createResponse(response);
         assertEquals(requestId, requestIdForTestGetIncrementedId+1);
         assertEquals(responseId, responseIdForTestGetIncrementedId+2);
     }
