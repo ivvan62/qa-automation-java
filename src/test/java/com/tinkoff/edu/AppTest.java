@@ -21,7 +21,7 @@ public class AppTest {
     private static final int ANY_RESPONSE_ID = 30;
 
     @BeforeEach
-    public void init () {
+    public void init() {
         request = new LoanRequest(LoanType.IP, 3, 500);
         response = new LoanResponse(LoanResponseType.APPROVED);
         loanCalcControllerForTestGetIncrementedId = new LoanCalcController
@@ -30,7 +30,7 @@ public class AppTest {
     }
 
     @Test
-    public void shouldGetId1WhenFirstCall (){
+    public void shouldGetId1WhenFirstCall(){
         int requestId = loanCalcControllerForTestGetId1.createRequest(request);
         int responseId = loanCalcControllerForTestGetId1.createResponse(response);
         assertEquals(1, requestId);
@@ -38,16 +38,10 @@ public class AppTest {
     }
 
     @Test
-    public void shouldGetIncrementedIdWhenAnyCall (){
+    public void shouldGetIncrementedIdWhenAnyCall(){
         int requestId = loanCalcControllerForTestGetIncrementedId.createRequest(request);
         int responseId = loanCalcControllerForTestGetIncrementedId.createResponse(response);
         assertEquals(ANY_REQUEST_ID+1, requestId);
         assertEquals(ANY_RESPONSE_ID+2, responseId);
-    }
-
-    @Test
-    @Disabled
-    public void shouldAnswerWithFalse () {
-        assertTrue (true);
     }
 }
