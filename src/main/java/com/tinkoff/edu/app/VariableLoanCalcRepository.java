@@ -1,15 +1,15 @@
 package com.tinkoff.edu.app;
 
-public class StaticVariableLoanCalcRepository implements LoanCalcRepository {
+public class VariableLoanCalcRepository implements LoanCalcRepository {
     private int requestId;
     private int responseId;
 
-    public StaticVariableLoanCalcRepository(int requestId, int responseId) {
+    public VariableLoanCalcRepository(int requestId, int responseId) {
         this.responseId = responseId;
         this.requestId = requestId;
     }
 
-    public StaticVariableLoanCalcRepository() {
+    public VariableLoanCalcRepository() {
 
     }
 
