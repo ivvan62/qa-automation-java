@@ -20,6 +20,6 @@ public class VariableLoanCalcRepository implements LoanCalcRepository {
 
     @Override
     public int saveResponse(LoanResponse response) {
-        return responseId += 2;
+        return ++responseId;
     }
 }

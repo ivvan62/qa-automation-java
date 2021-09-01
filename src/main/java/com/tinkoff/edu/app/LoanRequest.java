@@ -16,7 +16,7 @@ public class LoanRequest {
         return months;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
