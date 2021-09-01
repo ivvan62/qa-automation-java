@@ -131,6 +131,4 @@ public class AppTest {
         LoanResponse loanResponse = loanCalcControllerForTestsLoanCalcController.createRequest(request);
         assertEquals(new LoanResponse(LoanResponseType.DECLINED, -1), loanResponse);
     }
-
-
 }

@@ -37,7 +37,6 @@ public class LoanCalcController {
         } else {
             return new LoanResponse(LoanResponseType.DECLINED, -1);
         }
-
     }
 
     public int createResponse(LoanResponse response) {
