@@ -3,7 +3,7 @@ package com.tinkoff.edu.app;
 import java.util.Objects;
 
 public class LoanResponse {
-    private final LoanResponseType responseType;
+    private LoanResponseType responseType;
     private int requestId;
 
     public LoanResponse(LoanResponseType responseType) {
