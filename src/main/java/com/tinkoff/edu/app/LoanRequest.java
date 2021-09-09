@@ -28,12 +28,6 @@ public class LoanRequest {
         this.fullName = fullName;
     }
 
-    public LoanRequest(LoanType type, int months, double amount, String fullName) {
-        this.type = type;
-        this.months = months;
-        this.amount = amount;
-        this.fullName = fullName;
-    }
 
     public LoanRequest setLoanResponseType(LoanResponseType loanResponseType) {
         this.loanResponseType = loanResponseType;
@@ -62,17 +56,5 @@ public class LoanRequest {
 
     public LoanResponseType getLoanResponseType() {
         return loanResponseType;
-    }
-
-    @Override
-    public String toString() {
-        return "LoanRequest{" +
-                "type=" + type +
-                ", months=" + months +
-                ", amount=" + amount +
-                ", fullName='" + fullName + '\'' +
-                ", uuid=" + uuid +
-                ", loanResponseType=" + loanResponseType +
-                '}';
     }
 }

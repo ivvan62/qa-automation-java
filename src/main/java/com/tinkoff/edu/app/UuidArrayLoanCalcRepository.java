@@ -31,7 +31,7 @@ public class UuidArrayLoanCalcRepository implements LoanCalcRepository {
         for (int i = 0; i < arrayLoanRequest.length; i++) {
             if (arrayLoanRequest[i] == null) {
                 UUID uuid = UUID.randomUUID();
-                LoanRequest loanRequest = new LoanRequest(uuid.toString(), LoanType.PERSON, 10, 1000, "fio");
+                LoanRequest loanRequest = new LoanRequest(uuid.toString(), LoanType.PERSON, 10, 1000, "OOO IVANOV IVAN IVAN");
                 LoanCalcController loanCalcController = new LoanCalcController(new UuidArrayLoanCalcRepository());
                 LoanResponse loanResponse = loanCalcController.createRequest(loanRequest);
                 arrayLoanRequest[i] = new LoanRequest(uuid.toString(),
