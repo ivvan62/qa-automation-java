@@ -30,8 +30,8 @@ public class LoanCalcController {
             throw new IllegalArgumentException("Количество месяцев должно быть не менее 1 и не более 100");
         }
 
-        if (request.getAmount() < 0.01 || request.getAmount() > 999_999.99) {
-            throw new IllegalArgumentException("Сумма кредита должна быть не менее 0.01 и не более 999 999.99");
+       if (request.getAmount() < 0.01 || request.getAmount() > 999_999.99) {
+            throw new AmountValidationException("Сумма кредита должна быть не менее 0.01 и не более 999 999.99");
         }
 
         switch (request.getType()) {

@@ -38,7 +38,6 @@ public class TestsForUuidArrayLoanCalcRepository {
         loanCalcControllerForTestGetId1 = new LoanCalcController(new UuidArrayLoanCalcRepository());
     }
 
-
     @Test
     public void shouldGetErrorWhenApplyNullForLoanType() {
         assertThrows(NullPointerException.class,
@@ -63,10 +62,10 @@ public class TestsForUuidArrayLoanCalcRepository {
 
     @Test
     public void shouldGetErrorWhenCountAmountsInvalid() {
-        assertThrows(IllegalArgumentException.class,
-                () -> loanCalcControllerForTestsAny.createRequest(new LoanRequest(UUID.randomUUID().toString(), LoanType.IP, 3, 0.00100500, "Ivanov Ivan")));
-        assertThrows(IllegalArgumentException.class,
-                () -> loanCalcControllerForTestsAny.createRequest(new LoanRequest(UUID.randomUUID().toString(), LoanType.IP, 11, 10050000, "Ivanov-Ivan")));
+        AmountValidationException thrown = assertThrows(AmountValidationException.class, () -> loanCalcControllerForTestsAny.
+                createRequest(new LoanRequest(UUID.randomUUID().toString(), LoanType.IP, 3, 0.00100500, "Ivanov Ivan")));
+        assertTrue(thrown.getMessage().
+                contains("Сумма кредита должна быть не менее 0.01 и не более 999 999.99"));
     }
 
     @Test
