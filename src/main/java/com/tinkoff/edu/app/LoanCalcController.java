@@ -1,11 +1,7 @@
 package com.tinkoff.edu.app;
 
-import java.util.Random;
-import java.util.UUID;
-
 public class LoanCalcController {
     private LoanCalcService loanCalcService;
-    private String uuid;
     private LoanRequest[] loanRequest;
 
     public LoanCalcController(LoanCalcRepository repo) {
@@ -13,33 +9,51 @@ public class LoanCalcController {
     }
 
     public LoanResponse createRequest(LoanRequest request) {
-        if (request.getType() == null) {
-            return new LoanResponse(LoanResponseType.DECLINED, -1);
+
+        if (request.getFullName() == null || request.getFullName().equals("")) {
+            throw new NullPointerException("ФИО Клиента не заполнено");
         }
-        if (!(request.getMonths() <= 0) && !(request.getAmount() <= 0)) {
-            switch (request.getType()) {
-                default:
-                case PERSON:
-                    if ((request.getAmount() <= 10_000.0d) && (request.getMonths() <= 12)) {
-                        return new LoanResponse(LoanResponseType.APPROVED, loanCalcService.createRequest(request));
-                    } else if ((request.getAmount() > 10_000.0d) && (request.getMonths() > 12)) {
-                        return new LoanResponse(LoanResponseType.DECLINED, loanCalcService.createRequest(request));
-                    } else {
-                        return new LoanResponse(LoanResponseType.DECLINED, -1);
-                    }
-                case OOO:
-                    if (request.getAmount() <= 10_000.0d) {
-                        return new LoanResponse(LoanResponseType.DECLINED, loanCalcService.createRequest(request));
-                    } else if ((request.getAmount() > 10_000.0d) && (request.getMonths() < 12)) {
-                        return new LoanResponse(LoanResponseType.APPROVED, loanCalcService.createRequest(request));
-                    } else {
-                        return new LoanResponse(LoanResponseType.DECLINED, loanCalcService.createRequest(request));
-                    }
-                case IP:
+
+        if (request.getFullName().length() < 10 || request.getFullName().length() > 100) {
+            throw new IllegalArgumentException("Длина ФИО должна быть не менее 10 и не более 100 символов");
+        }
+
+        if (!(request.getFullName().matches("^[a-zA-Z -]+"))) {
+            throw new IllegalArgumentException("Некорректное ФИО");
+        }
+
+        if (request.getUuid() == null || request.getUuid().equals("")) {
+            throw new NullPointerException("UUID Клиента не заполнено");
+        }
+
+        if (request.getMonths() < 1 || request.getMonths() > 100) {
+            throw new IllegalArgumentException("Количество месяцев должно быть не менее 1 и не более 100");
+        }
+
+       if (request.getAmount() < 0.01 || request.getAmount() > 999_999.99) {
+            throw new AmountValidationException("Сумма кредита должна быть не менее 0.01 и не более 999 999.99");
+        }
+
+        switch (request.getType()) {
+            default:
+            case PERSON:
+                if ((request.getAmount() <= 10_000.0d) && (request.getMonths() <= 12)) {
+                    return new LoanResponse(LoanResponseType.APPROVED, loanCalcService.createRequest(request));
+                } else if ((request.getAmount() > 10_000.0d) && (request.getMonths() > 12)) {
                     return new LoanResponse(LoanResponseType.DECLINED, loanCalcService.createRequest(request));
-            }
-        } else {
-            return new LoanResponse(LoanResponseType.DECLINED, -1);
+                } else {
+                    return new LoanResponse(LoanResponseType.DECLINED, -1);
+                }
+            case OOO:
+                if (request.getAmount() <= 10_000.0d) {
+                    return new LoanResponse(LoanResponseType.DECLINED, loanCalcService.createRequest(request));
+                } else if ((request.getAmount() > 10_000.0d) && (request.getMonths() < 12)) {
+                    return new LoanResponse(LoanResponseType.APPROVED, loanCalcService.createRequest(request));
+                } else {
+                    return new LoanResponse(LoanResponseType.DECLINED, loanCalcService.createRequest(request));
+                }
+            case IP:
+                return new LoanResponse(LoanResponseType.DECLINED, loanCalcService.createRequest(request));
         }
     }
 
@@ -48,7 +62,7 @@ public class LoanCalcController {
     }
 
     public LoanResponseType getResponseTypeForClient(LoanResponse response, String uuid) {
-        LoanRequest request = new LoanRequest(uuid, LoanType.IP, 3, 500, "fio");
+        LoanRequest request = new LoanRequest(uuid, LoanType.IP, 3, 500, "Ivanfffov Ivan");
         LoanCalcController loanCalcController = new LoanCalcController(new UuidArrayLoanCalcRepository());
         response = loanCalcController.createRequest(request);
         loanRequest = loanCalcController.createResponse(response);
@@ -63,7 +77,7 @@ public class LoanCalcController {
     }
 
     public LoanResponseType setResponseTypeForManager(LoanResponse response, String uuid) {
-        LoanRequest request = new LoanRequest(uuid, LoanType.IP, 3, 500, "fio");
+        LoanRequest request = new LoanRequest(uuid, LoanType.IP, 3, 500, "Ivanfffov Ivan");
         LoanCalcController loanCalcController = new LoanCalcController(new UuidArrayLoanCalcRepository());
         response = loanCalcController.createRequest(request);
         loanRequest = loanCalcController.createResponse(response);
